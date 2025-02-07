@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Health Assistant</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .hero {
+            background-image: linear-gradient(to bottom, #33ccff, #ccffcc);
+            padding: 100px;
+            text-align: center;
+            color: #ffffff;
+        }
+        .symptoms-checker {
+            margin-top: 50px;
+        }
+        .health-tips {
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">AI-Powered Health Assistant</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#symptoms-checker">Symptoms Checker</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#health-tips">Health Tips</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="hero">
+        <h1>AI-Powered Health Assistant</h1>
+        <p>Get personalized health advice and recommendations</p>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#symptomsModal">Check Your Symptoms</button>
+    </div>
+    <div class="symptoms-checker" id="symptoms-checker">
+        <h2>Symptoms Checker</h2>
+        <select class="form-control" id="symptoms-select">
+            <option value="">Select a symptom</option>
+            <option value="headache">Headache</option>
+            <option value="fever">Fever</option>
+            <option value="cough">Cough</option>
+        </select>
+        <button type="button" class="btn btn-primary" id="check-symptoms-btn">Check Symptoms</button>
+        <div id="symptoms-result"></div>
+        <div id="health-tips-section"></div>
+    </div>
+    <div class="modal fade" id="symptomsModal" tabindex="-1" role="dialog" aria-labelledby="symptomsModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="symptomsModalLabel">Symptoms Checker</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <select class="form-control" id="symptoms-select-modal">
+                        <option value="">Select a symptom</option>
+                        <option value="headache">Headache</option>
+                        <option value="fever">Fever</option>
+                        <option value="cough">Cough</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="check-symptoms-btn-modal">Check Symptoms</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+        const healthTips = {
+            "headache": [
+                "Stay hydrated by drinking plenty of water",
+                "Take a break and rest in a quiet, dark room",
+                "Try over-the-counter pain relievers such as acetaminophen or ibuprofen"
+            ],
+            "fever": [
+                "Stay hydrated by drinking plenty of fluids",
+                "Take medication such as acetaminophen or ibuprofen to reduce the fever",
+                "Rest and avoid strenuous activities"
+            ],
+            "cough": [
+                "Stay hydrated by drinking plenty of fluids",
+                "Use a humidifier to add moisture to the air",
+                "Try over-the-counter cough medicines such as cough suppressants or expectorants"
+            ]
+        };
+        $(document).ready(function() {
+            $('#check-symptoms-btn').click(function() {
+                var symptom = $('#symptoms-select').val();
+                if (symptom !== '') {
+                    $('#symptoms-result').html('You have selected: ' + symptom);
+                    const tips = healthTips[symptom];
+                    const tipsHtml = tips.map(tip => `<li>${tip}</li>`).join('');
+                    $('#health-tips-section').html(`<h2>Health Tips for ${symptom}</h2><ul>${tipsHtml}</ul>`);
+                }
+            });
+            $('#check-symptoms-btn-modal').click(function() {
+                var symptom = $('#symptoms-select-modal').val();
+                if (symptom !== '') {
+                    $('#symptoms-result').html('You have selected: ' + symptom);
+                    const tips = healthTips[symptom];
+                    const tipsHtml = tips.map(tip => `<li>${tip}</li>`).join('');
+                    $('#health-tips-section').html(`<h2>Health Tips for ${symptom}</h2><ul>${tipsHtml}</ul>`);
+                    $('#symptomsModal').modal('hide');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
